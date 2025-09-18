@@ -1,0 +1,51 @@
+BLOK_FREIGHT_SHEET_ID_MAPPER = {
+    0: {
+        "code": "US_CAD",
+        "path": "./data/google_sheets/us_canada_sheet.xlsx",
+        "norm_path": "./data/blok_freights/norm_us_cad_blok_freights.csv",
+        "denorm_path": "./data/blok_freights/denorm_us_cad_blok_freights.csv",
+        "hapag_path": "./data/database/hapag_us_cad_blok_freights.json",
+    },
+    1: {
+        "code": "EU",
+        "path": "./data/google_sheets/eu_turkey_sheet.xlsx",
+        "norm_path": "./data/blok_freights/norm_eu_blok_freights.csv",
+        "denorm_path": "./data/blok_freights/denorm_eu_blok_freights.csv",
+        "hapag_path": "./data/database/hapag_eu_blok_freights.json",
+    },
+    2: {
+        "code": "OC",
+        "path": "./data/google_sheets/oc_sheet.xlsx",
+        "norm_path": "./data/blok_freights/norm_oc_blok_freights.csv",
+        "denorm_path": "./data/blok_freights/denorm_oc_blok_freights.csv",
+        "hapag_path": "./data/database/hapag_oc_blok_freights.json",
+    },
+    3: {
+        "code": "ME",
+        "path": "./data/google_sheets/me_sheet.xlsx",
+        "norm_path": "./data/blok_freights/norm_me_blok_freights.csv",
+        "denorm_path": "./data/blok_freights/denorm_me_blok_freights.csv",
+        "hapag_path": "./data/database/hapag_me_blok_freights.json",
+    },
+    4: {
+        "code": "FE",
+        "path": "./data/google_sheets/fe_sheet.xlsx",
+        "norm_path": "./data/blok_freights/norm_fe_blok_freights.csv",
+        "denorm_path": "./data/blok_freights/denorm_fe_blok_freights.csv",
+        "hapag_path": "./data/database/hapag_fe_blok_freights.json",
+    },
+    5: {
+        "code": "AF",
+        "path": "./data/google_sheets/africa_sheet.xlsx",
+        "norm_path": "./data/blok_freights/norm_af_blok_freights.csv",
+        "denorm_path": "./data/blok_freights/denorm_af_blok_freights.csv",
+        "hapag_path": "./data/database/hapag_af_blok_freights.json",
+    },
+    6: {
+        "code": "CN",
+        "path": "./data/google_sheets/cn_sheet.xlsx",
+        "norm_path": "./data/blok_freights/norm_cn_blok_freights.csv",
+        "denorm_path": "./data/blok_freights/denorm_cn_blok_freights.csv",
+        "hapag_path": "./data/database/hapag_cn_blok_freights.json",
+    },
+}

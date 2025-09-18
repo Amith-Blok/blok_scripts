@@ -1,0 +1,58 @@
+2025-09-01 09:57:45,414 INFO Converted 1BgzkWfXSx6vEShIK85eWodIUkr2yl4sKzuRKpMLw5KQ to ./data/google_sheets/eu_turkey_sheet.xlsx
+2025-09-01 09:57:47,353 INFO Converted 1L4LAgDcsD8tdxWKxaeMWaAxHhClQouNPTF7KoK8yYJA to ./data/google_sheets/us_canada_sheet.xlsx
+2025-09-01 09:57:49,362 INFO Converted 1A0BY7m-hspeZ3gv8TqeARmtsianaJu06Ai5xZ4pDYMI to ./data/google_sheets/oc_sheet.xlsx
+2025-09-01 09:57:51,137 INFO Converted 1ToCOomvOXZbS_Wl2gcIfWdTA2lEx4er82uf5BJyfIFw to ./data/google_sheets/me_sheet.xlsx
+2025-09-01 09:57:53,344 INFO Converted 1MDtMBCX5LQvAWdkzFphbMDAFDGowRHdDf6yo5d-TDoo to ./data/google_sheets/fe_sheet.xlsx
+2025-09-01 09:57:55,308 INFO Converted 1r-ZQRFZRUkOGp0IHZeZdWKsXSSLEeCob5oAnAU8fPhE to ./data/google_sheets/cn_sheet.xlsx
+2025-09-01 09:57:57,437 INFO Converted 1XXkM289xACdACx2rSJFjArvTRBuE9KTHjNSLcEvNP50 to ./data/google_sheets/africa_sheet.xlsx
+2025-09-01 09:57:58,304 INFO Finished:Delete Test Lines
+2025-09-01 09:57:58,403 INFO Saved Denormalized to ./data/blok_freights/denorm_oc_blok_freights.csv
+2025-09-01 09:57:58,417 INFO Saved Normalized to ./data/blok_freights/norm_oc_blok_freights.csv
+2025-09-01 09:57:58,419 INFO Error occur in services:blok_freights:list index out of range
+2025-09-01 10:10:06,713 INFO Converted 1BgzkWfXSx6vEShIK85eWodIUkr2yl4sKzuRKpMLw5KQ to ./data/google_sheets/eu_turkey_sheet.xlsx
+2025-09-01 10:10:08,683 INFO Converted 1L4LAgDcsD8tdxWKxaeMWaAxHhClQouNPTF7KoK8yYJA to ./data/google_sheets/us_canada_sheet.xlsx
+2025-09-01 10:10:10,432 INFO Converted 1A0BY7m-hspeZ3gv8TqeARmtsianaJu06Ai5xZ4pDYMI to ./data/google_sheets/oc_sheet.xlsx
+2025-09-01 10:10:12,361 INFO Converted 1ToCOomvOXZbS_Wl2gcIfWdTA2lEx4er82uf5BJyfIFw to ./data/google_sheets/me_sheet.xlsx
+2025-09-01 10:10:14,395 INFO Converted 1MDtMBCX5LQvAWdkzFphbMDAFDGowRHdDf6yo5d-TDoo to ./data/google_sheets/fe_sheet.xlsx
+2025-09-01 10:10:16,305 INFO Converted 1r-ZQRFZRUkOGp0IHZeZdWKsXSSLEeCob5oAnAU8fPhE to ./data/google_sheets/cn_sheet.xlsx
+2025-09-01 10:10:18,239 INFO Converted 1XXkM289xACdACx2rSJFjArvTRBuE9KTHjNSLcEvNP50 to ./data/google_sheets/africa_sheet.xlsx
+2025-09-01 10:10:19,100 INFO Finished:Delete Test Lines
+2025-09-01 10:10:19,176 INFO Saved Denormalized to ./data/blok_freights/denorm_oc_blok_freights.csv
+2025-09-01 10:10:19,194 INFO Saved Normalized to ./data/blok_freights/norm_oc_blok_freights.csv
+2025-09-01 10:10:19,917 INFO Finished:Bulk Write Completed
+2025-09-01 10:19:36,633 INFO Converted 1BgzkWfXSx6vEShIK85eWodIUkr2yl4sKzuRKpMLw5KQ to ./data/google_sheets/eu_turkey_sheet.xlsx
+2025-09-01 10:19:38,430 INFO Converted 1L4LAgDcsD8tdxWKxaeMWaAxHhClQouNPTF7KoK8yYJA to ./data/google_sheets/us_canada_sheet.xlsx
+2025-09-01 10:19:40,007 INFO Converted 1A0BY7m-hspeZ3gv8TqeARmtsianaJu06Ai5xZ4pDYMI to ./data/google_sheets/oc_sheet.xlsx
+2025-09-01 10:19:41,867 INFO Converted 1ToCOomvOXZbS_Wl2gcIfWdTA2lEx4er82uf5BJyfIFw to ./data/google_sheets/me_sheet.xlsx
+2025-09-01 10:19:43,810 INFO Converted 1MDtMBCX5LQvAWdkzFphbMDAFDGowRHdDf6yo5d-TDoo to ./data/google_sheets/fe_sheet.xlsx
+2025-09-01 10:19:45,749 INFO Converted 1r-ZQRFZRUkOGp0IHZeZdWKsXSSLEeCob5oAnAU8fPhE to ./data/google_sheets/cn_sheet.xlsx
+2025-09-01 10:19:47,644 INFO Converted 1XXkM289xACdACx2rSJFjArvTRBuE9KTHjNSLcEvNP50 to ./data/google_sheets/africa_sheet.xlsx
+2025-09-01 10:19:48,596 INFO Finished:Delete Test Lines
+2025-09-01 10:19:48,650 INFO Saved Denormalized to ./data/blok_freights/denorm_oc_blok_freights.csv
+2025-09-01 10:19:48,669 INFO Saved Normalized to ./data/blok_freights/norm_oc_blok_freights.csv
+2025-09-01 10:19:49,268 INFO Finished:Bulk Write Completed
+2025-09-01 10:20:28,268 INFO Converted 1BgzkWfXSx6vEShIK85eWodIUkr2yl4sKzuRKpMLw5KQ to ./data/google_sheets/eu_turkey_sheet.xlsx
+2025-09-01 10:20:29,689 INFO Converted 1L4LAgDcsD8tdxWKxaeMWaAxHhClQouNPTF7KoK8yYJA to ./data/google_sheets/us_canada_sheet.xlsx
+2025-09-01 10:20:31,983 INFO Converted 1A0BY7m-hspeZ3gv8TqeARmtsianaJu06Ai5xZ4pDYMI to ./data/google_sheets/oc_sheet.xlsx
+2025-09-01 10:20:33,504 INFO Converted 1ToCOomvOXZbS_Wl2gcIfWdTA2lEx4er82uf5BJyfIFw to ./data/google_sheets/me_sheet.xlsx
+2025-09-01 10:20:35,000 INFO Converted 1MDtMBCX5LQvAWdkzFphbMDAFDGowRHdDf6yo5d-TDoo to ./data/google_sheets/fe_sheet.xlsx
+2025-09-01 10:20:36,420 INFO Converted 1r-ZQRFZRUkOGp0IHZeZdWKsXSSLEeCob5oAnAU8fPhE to ./data/google_sheets/cn_sheet.xlsx
+2025-09-01 10:20:37,777 INFO Converted 1XXkM289xACdACx2rSJFjArvTRBuE9KTHjNSLcEvNP50 to ./data/google_sheets/africa_sheet.xlsx
+2025-09-01 10:20:39,465 INFO Finished:Delete Test Lines
+2025-09-01 10:20:39,489 INFO Error occur in services:blok_freights:Worksheet not found or empty for US Blok sea freights
+2025-09-01 10:20:39,684 INFO Saved Denormalized to ./data/blok_freights/denorm_eu_blok_freights.csv
+2025-09-01 10:20:39,726 INFO Saved Normalized to ./data/blok_freights/norm_eu_blok_freights.csv
+2025-09-01 10:20:41,272 INFO Finished:Bulk Write Completed
+2025-09-01 10:20:41,342 INFO Saved Denormalized to ./data/blok_freights/denorm_oc_blok_freights.csv
+2025-09-01 10:20:41,354 INFO Saved Normalized to ./data/blok_freights/norm_oc_blok_freights.csv
+2025-09-01 10:20:41,985 INFO Finished:Bulk Write Completed
+2025-09-01 10:20:42,081 INFO Saved Denormalized to ./data/blok_freights/denorm_me_blok_freights.csv
+2025-09-01 10:20:42,101 INFO Saved Normalized to ./data/blok_freights/norm_me_blok_freights.csv
+2025-09-01 10:20:42,742 INFO Finished:Bulk Write Completed
+2025-09-01 10:20:42,798 INFO Error occur in services:blok_freights:Script couldn't format header of FE:
+2025-09-01 10:20:42,837 INFO Saved Denormalized to ./data/blok_freights/denorm_af_blok_freights.csv
+2025-09-01 10:20:42,842 INFO Saved Normalized to ./data/blok_freights/norm_af_blok_freights.csv
+2025-09-01 10:20:43,702 INFO Finished:Bulk Write Completed
+2025-09-01 10:20:43,818 INFO Saved Denormalized to ./data/blok_freights/denorm_cn_blok_freights.csv
+2025-09-01 10:20:43,877 INFO Saved Normalized to ./data/blok_freights/norm_cn_blok_freights.csv
+2025-09-01 10:20:45,648 INFO Finished:Bulk Write Completed
