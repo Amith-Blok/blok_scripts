@@ -14,14 +14,14 @@ from src.services.sea_freight.helper import (
 
 
 def sea_freight_db_pipeline(
-    run_list: List[str] = ["EU", "NA", "OC", "ME", "FE", "CN", "AF", "SA"]
+    run_list: List[str] = ["EU", "NA", "OC", "ME", "FE", "CN", "AF", "SA","IS","CA"]
 ):
     logger.info("Starting sea freight db pipeline")
     df_list = freight_excel_export_pipeline(run_list)
 
-    # logger.info("Deleting all lines from test db")
-    # delete_test_lines()
-    # logger.info("Finished deleting all lines from test db")
+    logger.info("Deleting all lines from test db")
+    delete_test_lines()
+    logger.info("Finished deleting all lines from test db")
 
     for df in df_list:
         formated_df = format_sea_freight_df(df)
@@ -42,6 +42,8 @@ def sea_freight_db_pipeline(
         logger.info(
             f"Upserting {len(cleaned_denormalized_local_added_record)} lines to test db"
         )
+
+
         upsert_test_lines(cleaned_denormalized_local_added_record)
         logger.info(
             f"Finished upserting {len(cleaned_denormalized_local_added_record)} lines to test db"

@@ -9,13 +9,16 @@ from src.pipeline.air_port_db_pipeline import airport_db_pipeline
 from src.config.logger import logger, config_logger
 from src.services.air_freight.excel_to_csv import airfreight_excel_to_csv
 from src.pipeline.airfreight_db_pipeline import airfreight_db_pipeline
+from src.services.exchange_rates import get_exchange_rates
+from src.pipeline.destination_charges_pipeline import destination_charges_pipeline
 
 
 def main():
     config_logger()
-    # freight_pipeline(do_all=True)
-    logger.info("Starting rail db pipeline")
-    sea_freight_db_pipeline(run_list=["CN","AF","SA"])
+    sea_freight_db_pipeline(["IS","CA"])
+    # get_exchange_rates()
+    # sea_rail_db_pipeline()
+    # destination_charges_pipeline()
     # airfreight_db_pipeline()
     # create_seaport_map()
     # logger.info("Starting main")
