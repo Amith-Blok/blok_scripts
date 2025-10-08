@@ -13,6 +13,8 @@ from src.config.google_sheet import (
     AIR_FREIGHT_IMPORT_ME_TO_INDIA_GOOGLE_SHEET_ID,
     AIR_FREIGHT_IMPORT_SA_TO_INDIA_GOOGLE_SHEET_ID,
     AIR_FREIGHT_IMPORT_US_TO_INDIA_GOOGLE_SHEET_ID,
+    CENTRAL_AMERICA_GOOGLE_SHEET_ID,
+    INDIAN_SUBCONTINENT_GOOGLE_SHEET_ID,
     USA_CANADA_GOOGLE_SHEET_ID,
     SOUTH_AMERICA_GOOGLE_SHEET_ID,
     EUROPE_TURKEY_GOOGLE_SHEET_ID,
@@ -30,8 +32,27 @@ from src.config.google_sheet import (
     AIR_FREIGHT_EXPORT_FE_TO_INDIA_GOOGLE_SHEET_ID,
     AIR_FREIGHT_EXPORT_ME_TO_INDIA_GOOGLE_SHEET_ID,
     AIR_FREIGHT_EXPORT_SA_TO_INDIA_GOOGLE_SHEET_ID,
-)
+    DESTINATION_CHARGES_GOOGLE_SHEET_ID,
+        )
 
+
+def export_indian_subcontinent_sheet_to_excel(
+    sheet_id=INDIAN_SUBCONTINENT_GOOGLE_SHEET_ID,
+    save_to_excel: bool = True,
+    output_path: str = "./data/google_sheets/indian_subcontinent_sheet.xlsx",
+):
+    worksheet = get_last_google_sheet_by_id(sheet_id)
+    raw_data = worksheet.get_all_values()
+    header = raw_data[0]
+    data = raw_data[1:]
+    print(header)
+    df = pd.DataFrame(data, columns=header)
+
+    if save_to_excel:
+        df.to_excel(output_path, index=False)
+        logger.info(f"Converted {sheet_id} to {output_path}")
+
+    return df
 
 def export_us_canada_sheet_to_excel(
     sheet_id=USA_CANADA_GOOGLE_SHEET_ID,
@@ -43,6 +64,23 @@ def export_us_canada_sheet_to_excel(
     header = raw_data[0]
     data = raw_data[1:]
     # Convert list of lists to list of dicts for DictWriter
+    print(header)
+    df = pd.DataFrame(data, columns=header)
+
+    if save_to_excel:
+        df.to_excel(output_path, index=False)
+        logger.info(f"Converted {sheet_id} to {output_path}")
+
+    return df
+def export_central_america_sheet_to_excel(
+    sheet_id=CENTRAL_AMERICA_GOOGLE_SHEET_ID,
+    save_to_excel: bool = True,
+    output_path: str = "./data/google_sheets/central_america_sheet.xlsx",
+):
+    worksheet = get_last_google_sheet_by_id(sheet_id)
+    raw_data = worksheet.get_all_values()
+    header = raw_data[0]
+    data = raw_data[1:]
     print(header)
     df = pd.DataFrame(data, columns=header)
 
@@ -501,3 +539,19 @@ def export_all_sea_rail_sheets_to_excel(
     logger.info(f"Converted all worksheets from {sheet_id} to {output_path}")
 
     return workbook
+
+def export_destination_charges_sheet_to_excel(
+    sheet_id=DESTINATION_CHARGES_GOOGLE_SHEET_ID,
+    save_to_excel: bool = False,
+    output_path: str = "./data/google_sheets/destination_charges_sheet.xlsx",
+):
+    worksheet = get_last_google_sheet_by_id(sheet_id)
+    header = worksheet.get_all_values()[0]
+    data = worksheet.get_all_values()[1:]
+    df = pd.DataFrame(data, columns=header)
+
+    if save_to_excel:
+        df.to_excel(output_path, index=False)
+        logger.info(f"Converted {sheet_id} to {output_path}")
+
+    return df

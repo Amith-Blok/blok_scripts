@@ -7,6 +7,8 @@ from src.models.db.lines_old import OldSection, OldSectionData
 from src.services.freight.hapag_utils import generate_old_sea_section
 from src.utils.csv_util import csv_to_list
 from src.config.ind_local_charges import INDIA_EXPORT_LOCAL_CHARGES
+from src.database.distination_charges import get_test_destination_charges_by_port_code
+from src.config.logger import logger
 
 
 def get_india_export_local_charges(terminal_charges: dict) -> OldSection:
@@ -42,7 +44,31 @@ def get_india_export_local_charges(terminal_charges: dict) -> OldSection:
         )
     return local_charges_list
 
-
+def generate_destination_charges(end_code:str) -> OldSection or None:
+    if end_code.startswith('US') or end_code.startswith('CA'):
+        logger.info(f"Skipping Destination Charges for {end_code}. It is a US or CA port")
+        return None
+    local_charges_list: OldSection = OldSection(
+        name="DESTINATION_CHARGES",
+        label="Destination Charges",
+        data=[],
+    )
+    destination_charges = get_test_destination_charges_by_port_code(end_code)
+    if not destination_charges:
+        return None
+    local_charges_list.data.append(
+        OldSectionData(
+            name="Destination Charges",
+            code="DST",
+            currency=destination_charges.currency,
+            isConsideredForTotal=True,
+            additionalNotes="",
+            container1=destination_charges.d2,
+            container2=destination_charges.d4,
+            container3=destination_charges.d4,
+        )
+    )
+    return local_charges_list
 def ind_export_locals_charges_adder_by_df(denormalized_df: pd.DataFrame) -> List[Dict]:
     """
     Adds export locals charges to the lines.
@@ -56,13 +82,13 @@ def ind_export_locals_charges_adder_by_df(denormalized_df: pd.DataFrame) -> List
     # print(india_terminal_charges_lookup)
 
     denormalized_blok = denormalized_df.to_dict(orient="records")
-    print("denormalize blok:", denormalized_blok[0])
-    print("denormalize blok:", len(denormalized_blok))
+    logger.info(f"denormalize blok: {denormalized_blok[0]}")
+    logger.info(f"denormalize blok: {len(denormalized_blok)}")
     denormalized_blok_list: List[DenormalizeLine] = [
         DenormalizeLine(**line) for line in denormalized_blok
     ]
-    print("Denormalized blok list:", denormalized_blok_list[0])
-    print("Denormalized blok list:", len(denormalized_blok_list))
+    logger.info(f"Denormalized blok list: {denormalized_blok_list[0]}")
+    logger.info(f"Denormalized blok list: {len(denormalized_blok_list)}")
 
     # Group denormalized blok lines by pol_code:pod_code
     normalized_blok_lookup: DefaultDict[str, List[DenormalizeLine]] = defaultdict(list)
@@ -71,13 +97,13 @@ def ind_export_locals_charges_adder_by_df(denormalized_df: pd.DataFrame) -> List
 
     final_lines_records: List[Dict] = []
     for key, bloks in normalized_blok_lookup.items():
-        print("key:", key)
+        logger.info(f"key: {key}")
         # get local charges for this route
         terminal_charges = india_terminal_charges_lookup.get(
             bloks[0].pol_code.strip().upper()
         )
         if not terminal_charges:
-            print(f"Terminal charges not found for {bloks[0].pol_code}")
+            logger.info(f"Terminal charges not found for {bloks[0].pol_code}")
             continue
         local_charges = get_india_export_local_charges(terminal_charges)
         # Prepare the output dictionary for this route
@@ -89,12 +115,16 @@ def ind_export_locals_charges_adder_by_df(denormalized_df: pd.DataFrame) -> List
             "available_lines": [],
             "lines": [],
         }
+        destination_charges = generate_destination_charges(bloks[0].pod_code)
         for line in bloks:
             line_data = {}
             # generate the sea section for this blok line and append local charges
             line_sections = [
                 generate_old_sea_section(d2=line.d2 or 0, d4=line.d4 or 0)
             ] + [local_charges]
+            if destination_charges and destination_charges.data[0].code=='DST':
+                logger.info(f"Adding Destination Charges for {bloks[0].pod_code}")
+                line_sections.append(destination_charges)
             line_data["line_name"] = line.line_name
             line_data["estimated_days"] = line.transit_time or 0
             line_data["valid_to"] = line.validity or ""
