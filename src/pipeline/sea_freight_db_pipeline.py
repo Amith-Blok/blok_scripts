@@ -17,6 +17,7 @@ def sea_freight_db_pipeline(
     run_list: List[str] = ["EU", "NA", "OC", "ME", "FE", "CN", "AF", "SA","IS","CA"]
 ):
     logger.info("Starting sea freight db pipeline")
+    logger.info(f"Running for {run_list}")
     df_list = freight_excel_export_pipeline(run_list)
 
     logger.info("Deleting all lines from test db")

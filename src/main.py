@@ -15,7 +15,7 @@ from src.pipeline.destination_charges_pipeline import destination_charges_pipeli
 
 def main():
     config_logger()
-    sea_freight_db_pipeline(["IS", "CA"])
+    sea_freight_db_pipeline()
     # get_exchange_rates()
     # sea_rail_db_pipeline()
     # destination_charges_pipeline()

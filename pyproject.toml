@@ -29,6 +29,6 @@ where = ["."]
 include = ["src*"]
 
 [project.scripts]
-blok = "src.main:main"
+main="src.main:main"
 cli="src.cli.port:app"
 
