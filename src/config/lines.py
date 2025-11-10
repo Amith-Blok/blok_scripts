@@ -115,6 +115,7 @@ ALL_LINES = [
     "sea_lead",
     "cosco",
     "sealead",
+    "maersk",
 ]
 LINE_SCAC_MAPPING = {
     "msc": "MSCU",
@@ -124,4 +125,5 @@ LINE_SCAC_MAPPING = {
     "cma": "CMDU",
     "one": "ONEY",
     "sealead": "SCLD",
+    "maersk": "MSKU",
 }
