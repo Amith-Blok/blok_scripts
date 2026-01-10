@@ -1,8 +1,7 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date,timezone
 from dateutil import parser
 import pandas as pd
 import re
-
 from src.config.lines import ALL_LINES
 from src.utils.convert import string_to_snake_case
 from src.database.seaports import get_blok_seaports_by_port_code
@@ -10,7 +9,9 @@ from src.database.seaports import get_blok_seaports_by_port_code
 
 def format_sea_freight_df(df: pd.DataFrame) -> pd.DataFrame:
     # Lowercase headers
-    df.columns = [string_to_snake_case(str(col.strip())) if col else "" for col in df.columns]
+    df.columns = [
+        string_to_snake_case(str(col.strip())) if col else "" for col in df.columns
+    ]
     print("df.columns:", df.columns.tolist())
     # Drop the second row (subheading)
     df = df.iloc[1:].reset_index(drop=True)
@@ -31,10 +32,22 @@ def format_sea_freight_df(df: pd.DataFrame) -> pd.DataFrame:
             def format_date(val):
                 try:
                     if isinstance(val, datetime):
-                        return val.strftime("%Y-%m-%d")
+                        dt = val
+                    elif isinstance(val, date):
+                        dt = datetime.combine(val,datetime.min.time())
                     else:
-                        cell_date = parser.parse(str(val))
-                        return cell_date.strftime("%Y-%m-%d")
+                        dt = parser.parse(str(val))
+
+                    #Force Time zone to be UTC
+                    if dt.tzinfo is None:
+                        dt=dt.replace(tzinfo=timezone.utc)
+                    else:
+                        dt=dt.astimezone(timezone.utc)
+                    iso= dt.isoformat()
+                    print(f"iso string:{iso}")
+                    print(f"iso string type:{type(iso)}")
+                    return str(iso)
+
                 except Exception as e:
                     # print(f"Failed to parse date in column '{col}': {val} error:{e}")
                     return None

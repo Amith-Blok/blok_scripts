@@ -5,10 +5,15 @@ import pandas as pd
 from src.config.logger import logger
 
 
-def get_df_from_workbook(workbook: Spreadsheet, ignoreSheetTitle: List[str] = []):
+def get_df_from_workbook(
+    workbook: Spreadsheet,
+    ignore_sheet_title: List[str] = [],
+    include_sheet_title: List[str] = None,
+):
     df = None
     worksheets = workbook.worksheets()
-    ranges = [ws.title for ws in worksheets if ws.title not in ignoreSheetTitle]
+    ranges = [ws.title for ws in worksheets if ws.title not in ignore_sheet_title and (include_sheet_title is None or ws.title in include_sheet_title)]
+    logger.info(f"Ranges after ignoring: {ranges}")
 
     if not ranges:
         return df

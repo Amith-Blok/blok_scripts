@@ -1,7 +1,7 @@
 import json
 from src.config.logger import logger
 from typing import List
-from src.database.line_rates import delete_test_lines, upsert_test_lines
+from src.database.line_rates import delete_blok_lines, upsert_blok_lines
 from src.pipeline.freight_excel_export_pipeline import freight_excel_export_pipeline
 from src.services.freight.locals_charges_adder import (
     ind_export_locals_charges_adder_by_df,
@@ -14,15 +14,17 @@ from src.services.sea_freight.helper import (
 
 
 def sea_freight_db_pipeline(
-    run_list: List[str] = ["EU", "NA", "OC", "ME", "FE", "CN", "AF", "SA","IS","CA"]
+    run_list: List[str] = ["EU", "NA", "OC", "ME", "FE", "CN", "AF", "SA", "IS", "CA"],
+    clear_db: bool = False,
 ):
     logger.info("Starting sea freight db pipeline")
     logger.info(f"Running for {run_list}")
     df_list = freight_excel_export_pipeline(run_list)
 
-    logger.info("Deleting all lines from test db")
-    delete_test_lines()
-    logger.info("Finished deleting all lines from test db")
+    if clear_db:
+        logger.info("Deleting all lines from blok db")
+        delete_blok_lines()
+        logger.info("Finished deleting all lines from blok db")
 
     for df in df_list:
         formated_df = format_sea_freight_df(df)
@@ -30,7 +32,7 @@ def sea_freight_db_pipeline(
         logger.info(formated_df.head(3))
         denormalized_df = flexible_denormalize_with_melt(formated_df)
         logger.info(f"Found {len(denormalized_df)} dataframes")
-    
+
         cleaned_denormalized_df = clean_denormalized_data(denormalized_df)
         cleaned_denormalized_df.to_csv(
             "./data/cleaned_denormalized_df.csv", index=False
@@ -41,12 +43,10 @@ def sea_freight_db_pipeline(
         logger.info(f"Found {len(cleaned_denormalized_local_added_record)} dataframes")
 
         logger.info(
-            f"Upserting {len(cleaned_denormalized_local_added_record)} lines to test db"
+            f"Upserting {len(cleaned_denormalized_local_added_record)} lines to blok db"
         )
 
-
-        upsert_test_lines(cleaned_denormalized_local_added_record)
+        upsert_blok_lines(cleaned_denormalized_local_added_record)
         logger.info(
-            f"Finished upserting {len(cleaned_denormalized_local_added_record)} lines to test db"
+            f"Finished upserting {len(cleaned_denormalized_local_added_record)} lines to blok db"
         )
-

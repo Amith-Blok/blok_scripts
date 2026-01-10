@@ -14,7 +14,7 @@ def _get_test_collection():
 
 def _get_blok_collection():
     db = mongo_blok_db()
-    return db["lines_rates"]
+    return db["lines_charges"]
 
 
 def get_blok_line_by_codes(start_code: str, end_code: str):
@@ -53,13 +53,36 @@ def upsert_test_lines_by_path(path: str):
         [pymongo.UpdateOne(op["filter"], op["update"], op["upsert"]) for op in records]
     )
 
-def delete_test_lines():
+
+def delete_blok_lines():
     lines_collection = _get_test_collection()
     lines_collection.delete_many({})
     logger.info("Finished:Delete Test Lines")
 
-def upsert_test_lines(Lines_record: List[Dict]):
+
+def upsert_blok_lines(Lines_record: List[Dict]):
     lines_collection = _get_test_collection()
+    records = []
+    for lines in Lines_record:
+        start_code = lines["start_code"]
+        end_code = lines["end_code"]
+        query = {"start_code": start_code, "end_code": end_code}
+        update = {"$set": lines}
+        records.append({"filter": query, "update": update, "upsert": True})
+    lines_collection.bulk_write(
+        [pymongo.UpdateOne(op["filter"], op["update"], op["upsert"]) for op in records]
+    )
+    logger.info("Finished:Bulk Write Completed")
+
+
+def delete_blok_lines():
+    lines_collection = _get_blok_collection()
+    lines_collection.delete_many({})
+    logger.info("Finished:Delete Test Lines")
+
+
+def upsert_blok_lines(Lines_record: List[Dict]):
+    lines_collection = _get_blok_collection()
     records = []
     for lines in Lines_record:
         start_code = lines["start_code"]

@@ -117,3 +117,7 @@ def bulk_upsert_blok_airfreights(airfreights: List[Dict]):
 def delete_test_airfreights():
     collection = _get_test_collection()
     collection.delete_many({})
+def delete_blok_airfreights():
+    collection = _get_blok_collection()
+    collection.delete_many({})
+    logger.info("Successfully deleted all records from blok airfreight collection")

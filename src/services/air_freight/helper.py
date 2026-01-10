@@ -112,7 +112,7 @@ def combined_airfreight_export_df():
         ("FE", export_airfreight_export_fe_to_india_sheet_to_excel),
         ("ME", export_airfreight_export_me_to_india_sheet_to_excel),
         ("SA", export_airfreight_export_sa_to_india_sheet_to_excel),
-        ("AF", export_airfreight_import_af_to_india_sheet_to_excel),
+        ("AF", export_airfreight_export_af_to_india_sheet_to_excel),
     ]
 
     required_columns = ["origin_code", "destination_code", "rate"]
@@ -158,11 +158,16 @@ def combined_airfreight_export_df():
     return combined_df
 
 
-def combined_airfreight_export_and_import_df():
+def combined_airfreight_export_and_import_df(is_export: bool = None,is_import: bool = None):
     logger.info("Combining airfreight export and import dataframes")
-    export_df = combined_airfreight_export_df()
-    import_df = combined_airfreight_import_df()
+    export_df = None
+    import_df = None
+    if is_export:
+        export_df = combined_airfreight_export_df()
+    if is_import:
+        import_df = combined_airfreight_import_df()
     return pd.concat([export_df, import_df], ignore_index=True)
+
 
 
 def format_airfreight_df_to_list(df: pd.DataFrame) -> list:
