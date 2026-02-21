@@ -13,11 +13,13 @@ from src.pipeline.airfreight_db_pipeline import airfreight_db_pipeline
 from src.services.exchange_rates import get_exchange_rates
 from src.pipeline.destination_charges_pipeline import destination_charges_pipeline
 from src.pipeline.air_port_db_pipeline import airport_db_pipeline
+from src.pipeline.outbound_haulage_pipeline import outbound_haulage_pipeline
 
 
 def main():
     config_logger()
-    sea_freight_db_pipeline(clear_db=True, run_list=["OC"])
+    outbound_haulage_pipeline()
+    # sea_freight_db_pipeline(clear_db=False, run_list=["ME"])
     # get_exchange_rates()
     # sea_rail_db_pipeline()
     # destination_charges_pipeline()

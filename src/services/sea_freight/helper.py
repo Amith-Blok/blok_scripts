@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, date,timezone
+from datetime import datetime, timedelta, date, timezone
 from dateutil import parser
 import pandas as pd
 import re
@@ -18,34 +18,38 @@ def format_sea_freight_df(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=["pod"])
     # Remove rows where 'pod' is empty or whitespace
     df = df.loc[df["pod"].astype(str).str.strip() != ""]
-    valid_validity_columns = [f"{line}_validity" for line in ALL_LINES]
-    valid_transit_time_columns = [f"{line}_transit_time" for line in ALL_LINES]
-    valid_d2_columns = [f"{line}_d2" for line in ALL_LINES]
-    valid_d4_columns = [f"{line}_d4" for line in ALL_LINES]
+    # valid_validity_columns = [f"{line}_validity" for line in ALL_LINES]
+    valid_validity_columns_pattern = rf"^({'|'.join(ALL_LINES)})(?:_\d+)?_validity$"
+    # valid_transit_time_columns = [f"{line}_transit_time" for line in ALL_LINES]
+    valid_transit_columns_pattern = rf"^({'|'.join(ALL_LINES)})(?:_\d+)?_transit_time$"
+    # valid_d2_columns = [f"{line}_d2" for line in ALL_LINES]
+    valid_d2_columns_pattern = rf"^({'|'.join(ALL_LINES)})(?:_\d+)?_d2$"
+    # valid_d4_columns = [f"{line}_d4" for line in ALL_LINES]
+    valid_d4_columns_pattern = rf"^({'|'.join(ALL_LINES)})(?:_\d+)?_d4$"
     for col in df.columns:
         # print("pol or pod", col)
         if col in ["pol_name", "pod_name", "pol", "pod"]:
             # Convert to string
             df[col] = df[col].astype(str).str.upper().str.strip()
-        elif col in valid_validity_columns:
+        elif bool(re.match(valid_validity_columns_pattern, col)):
             # print("validity", col)
             def format_date(val):
                 try:
                     if isinstance(val, datetime):
                         dt = val
                     elif isinstance(val, date):
-                        dt = datetime.combine(val,datetime.min.time())
+                        dt = datetime.combine(val, datetime.min.time())
                     else:
                         dt = parser.parse(str(val))
 
-                    #Force Time zone to be UTC
+                    # Force Time zone to be UTC
                     if dt.tzinfo is None:
-                        dt=dt.replace(tzinfo=timezone.utc)
+                        dt = dt.replace(tzinfo=timezone.utc)
                     else:
-                        dt=dt.astimezone(timezone.utc)
-                    iso= dt.isoformat()
-                    print(f"iso string:{iso}")
-                    print(f"iso string type:{type(iso)}")
+                        dt = dt.astimezone(timezone.utc)
+                    iso = dt.isoformat()
+                    # print(f"iso string:{iso}")
+                    # print(f"iso string type:{type(iso)}")
                     return str(iso)
 
                 except Exception as e:
@@ -54,7 +58,7 @@ def format_sea_freight_df(df: pd.DataFrame) -> pd.DataFrame:
 
             df[col] = df[col].apply(format_date)
 
-        elif col in valid_transit_time_columns:
+        elif bool(re.match(valid_transit_columns_pattern, col)):
             # print("transit", col)
 
             def clean_transit(val):
@@ -68,7 +72,9 @@ def format_sea_freight_df(df: pd.DataFrame) -> pd.DataFrame:
 
             df[col] = df[col].apply(clean_transit).astype("Int64")
 
-        elif col in valid_d2_columns or col in valid_d4_columns:
+        elif bool(re.match(valid_d2_columns_pattern, col)) or bool(
+            re.match(valid_d4_columns_pattern, col)
+        ):
             # print("Print lines:", col)
             # Convert to float and handle missing/invalid values
             df[col] = df[col].astype(str).str.replace(r"[\$,]", "", regex=True)
@@ -148,6 +154,9 @@ def flexible_denormalize_with_melt(df):
             # Create carrier-specific dataframe
             carrier_df = df[base_cols + carrier_cols].copy()
 
+            print("Saving carrier")
+            carrier_df.to_excel("carrier_df.xlsx", index=True)
+
             # Rename columns to standard format
             column_mapping = {}
             for col in carrier_cols:
@@ -162,6 +171,9 @@ def flexible_denormalize_with_melt(df):
 
             carrier_df = carrier_df.rename(columns=column_mapping)
             carrier_df["line_name"] = carrier.lower()
+
+            print("Saving carrier")
+            carrier_df.to_excel("after_carrier_df.xlsx", index=False)
 
             # Ensure all expected columns exist (fill missing with None)
             expected_cols = [
@@ -193,6 +205,10 @@ def flexible_denormalize_with_melt(df):
             if "pod_code" in carrier_df.columns:
                 print("pod_code in carrier_df.columns")
                 carrier_df["pod_name"] = carrier_df["pod_code"].apply(get_port_name)
+
+
+            print("Saving Output.xlsx.....")
+            carrier_df.to_excel("output.xlsx", index=False)
 
             # Split port codes if they contain '/' separator
             expanded_rows = []

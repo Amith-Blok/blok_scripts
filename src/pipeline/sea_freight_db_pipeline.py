@@ -27,9 +27,11 @@ def sea_freight_db_pipeline(
         logger.info("Finished deleting all lines from blok db")
 
     for df in df_list:
+        df.to_excel("raw_df.xlsx", index=False)
         formated_df = format_sea_freight_df(df)
         logger.info(f"Found {len(formated_df)} dataframes")
         logger.info(formated_df.head(3))
+        formated_df.to_excel("formated_df.xlsx", index=False)
         denormalized_df = flexible_denormalize_with_melt(formated_df)
         logger.info(f"Found {len(denormalized_df)} dataframes")
 
